@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-sample
+  labels:
+    app: tomcat-sample
+spec:
+  selector:
+    matchLabels:
+      app: tomcat-sample
+  template:
+    metadata:
+      labels:
+        app: tomcat-sample
+    spec:
+      securityContext:
+        sysctls:
+        - name: net.ipv4.tcp_keepalive_time
+          value: "180"
+        - name: net.ipv4.tcp_keepalive_probes
+          value: "10"
+        - name: net.ipv4.tcp_keepalive_intvl
+          value: "20"
+      containers:
+        - name: tomcat-sample
+          image: s4intlaurent/tomcat-sample:v6

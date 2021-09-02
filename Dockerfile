@@ -1,8 +1,10 @@
-FROM maven:3.8.2-jdk-11 as maven_builder
+FROM praqma/network-multitool
+
+FROM maven:3.8.2-jdk-8 as maven_builder
 ADD . .
 RUN mvn clean package
 
-FROM tomcat:8.5.70-jdk11
+FROM tomcat:8.5.70-jdk8
 RUN cp -pr /usr/local/tomcat/webapps.dist/* /usr/local/tomcat/webapps
 COPY server.xml /usr/local/tomcat/conf/
 COPY tomcat-users.xml /usr/local/tomcat/conf/

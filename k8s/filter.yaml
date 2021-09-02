@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: ingress-gateway-socket-options
+  namespace: istio-system
+spec:
+  configPatches:
+  - applyTo: LISTENER
+    match:
+      context: GATEWAY
+    patch:
+      operation: MERGE
+      value:
+        socket_options:
+        - int_value: 1
+          level: 1
+          name: 9
+          state: STATE_BOUND
+        - int_value: 55
+          level: 6
+          name: 4
+          state: STATE_BOUND
+        - int_value: 55
+          level: 6
+          name: 5
+          state: STATE_BOUND
